@@ -206,24 +206,25 @@ task.delay(2.6, function()
         FloatingBtn.Visible = true
     end)
 
-    -- Sistema de arrastar o botão minimizado (FloatingBtn)
+    -- Sistema de arrastar e clique unificado para o botão minimizado (FloatingBtn)
     local fDragging, fDragInput, fDragStart, fStartPos
-    local hasMoved = false
 
     FloatingBtn.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             fDragging = true
-            hasMoved = false
             fDragStart = input.Position
             fStartPos = FloatingBtn.Position
+            
             input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then fDragging = false end
+                if input.UserInputState == Enum.UserInputState.End then 
+                    fDragging = false 
+                end
             end)
         end
     end)
 
     UserInputService.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
             fDragInput = input
         end
     end)
@@ -231,34 +232,38 @@ task.delay(2.6, function()
     RunService.RenderStepped:Connect(function()
         if fDragging and fDragInput then
             local delta = fDragInput.Position - fDragStart
-            if delta.Magnitude > 5 then hasMoved = true end
             FloatingBtn.Position = UDim2.new(fStartPos.X.Scale, fStartPos.X.Offset + delta.X, fStartPos.Y.Scale, fStartPos.Y.Offset + delta.Y)
         end
     end)
 
     FloatingBtn.MouseButton1Click:Connect(function()
-        if not hasMoved then
-            MainFrame.Visible = true
-            FloatingBtn.Visible = false
-        end
+        MainFrame.Visible = true
+        FloatingBtn.Visible = false
     end)
 
+    -- Sistema de arrastar unificado para a barra principal (TopBar)
     local dragging, dragInput, dragStart, startPos
+
     TopBar.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
             dragStart = input.Position
             startPos = MainFrame.Position
+            
             input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then dragging = false end
+                if input.UserInputState == Enum.UserInputState.End then 
+                    dragging = false 
+                end
             end)
         end
     end)
+
     UserInputService.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
             dragInput = input
         end
     end)
+
     RunService.RenderStepped:Connect(function()
         if dragging and dragInput then
             local delta = dragInput.Position - dragStart
