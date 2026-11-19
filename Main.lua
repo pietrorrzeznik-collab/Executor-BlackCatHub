@@ -137,13 +137,19 @@ task.delay(2.6, function()
     IntroFrame:Destroy()
 
     local FloatingBtn = Instance.new("ImageButton")
-    FloatingBtn.Size = UDim2.new(0, 45, 0, 45)
-    FloatingBtn.Position = UDim2.new(0, 20, 0.5, -22)
-    FloatingBtn.BackgroundTransparency = 1
-    FloatingBtn.Image = "rbxassetid://5619945945"
-    FloatingBtn.Visible = false
-    FloatingBtn.Parent = ScreenGui
-
+FloatingBtn.Size = UDim2.new(0, 45, 0, 45)
+FloatingBtn.Position = UDim2.new(0, 20, 0.5, -22)
+FloatingBtn.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
+FloatingBtn.BackgroundTransparency = 0
+FloatingBtn.BorderSizePixel = 0
+FloatingBtn.Image = "rbxassetid://13646695255"
+FloatingBtn.ScaleType = Enum.ScaleType.Fit
+FloatingBtn.Visible = false
+FloatingBtn.Parent = ScreenGui
+local FloatingCorner = Instance.new("UICorner")
+FloatingCorner.CornerRadius = UDim.new(0, 8)
+FloatingCorner.Parent = FloatingBtn
+        
     local MainFrame = Instance.new("Frame")
     MainFrame.Name = "MainFrame"
     MainFrame.Size = UDim2.new(0, 680, 0, 400)
