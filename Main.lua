@@ -146,6 +146,7 @@ FloatingBtn.Image = "rbxassetid://13646695255"
 FloatingBtn.ScaleType = Enum.ScaleType.Fit
 FloatingBtn.Visible = false
 FloatingBtn.Parent = ScreenGui
+FloatingBtn.Draggable = true
 local FloatingCorner = Instance.new("UICorner")
 FloatingCorner.CornerRadius = UDim.new(0, 8)
 FloatingCorner.Parent = FloatingBtn
